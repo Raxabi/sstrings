@@ -37,8 +37,13 @@ String* const string_from_char(char const* content) {
     return string;
 }
 
-String* const string_append_char(String* const dest, char const* src) {
-    size_t src_len  = strlen(src);
+/// @brief This functions acts as a helper because calling it require to pass the `src` length (without null terminator)
+/// @brief In this way, there are fewer calls to `strlen` which is a O(N) complexity function
+/// @param dest `String` object where `src` will be added
+/// @param src string content to be added into `dest->data`
+/// @param src_len pre-computed size (in bytes) without counting the null terminator
+/// @return Same pointer than `dest`
+static String* const string_append_helper(String* const dest, char const* src, size_t src_len) {
     size_t src_size = src_len + 1; // This value holds the byte for the null terminator
 
     char* tmp = realloc(dest->data, dest->size + src_len);
@@ -56,6 +61,15 @@ String* const string_append_char(String* const dest, char const* src) {
     dest->size += src_len;
     dest->len  += src_len;
     return dest;
+}
+
+String* const string_append_char(String* const dest, char const* src) {
+    size_t src_len = strlen(src);
+    string_append_helper(dest, src, src_len);
+}
+
+String* const string_append_string(String* const dest, String* const src) {
+    return string_append_helper(dest, src->data, src->len);
 }
 
 String* const string_concat_char(String* const s1, char const* c1) {
