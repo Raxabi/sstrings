@@ -63,12 +63,12 @@ static String* const string_append_helper(String* const dest, char const* src, s
     return dest;
 }
 
-String* const string_append_char(String* const dest, char const* src) {
+inline String* const string_append_char(String* const dest, char const* src) {
     size_t src_len = strlen(src);
     string_append_helper(dest, src, src_len);
 }
 
-String* const string_append_string(String* const dest, String* const src) {
+inline String* const string_append_string(String* const dest, String* const src) {
     return string_append_helper(dest, src->data, src->len);
 }
 
