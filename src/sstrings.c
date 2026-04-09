@@ -37,7 +37,7 @@ String* const string_from_char(char const* content) {
     return string;
 }
 
-String* const string_append(String* const dest, char const* src) {
+String* const string_append_char(String* const dest, char const* src) {
     size_t src_len  = strlen(src);
     size_t src_size = src_len + 1; // This value holds the byte for the null terminator
 

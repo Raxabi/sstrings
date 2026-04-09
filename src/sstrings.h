@@ -34,7 +34,7 @@ String* const string_from_char(char const* content);
 /// @param dest `String` object where `src` will be added
 /// @param src string content to be added into `dest->data`
 /// @return Same pointer than `dest`
-String* const string_append(String* const dest, char const* src);
+String* const string_append_char(String* const dest, char const* src);
 
 /// @brief Creates a new `String` object result of appends the content of `src` into `String::data`
 /// @param s1 `String` object which will receive all the characters of `src`

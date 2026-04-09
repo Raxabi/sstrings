@@ -10,7 +10,7 @@ int main() {
     }
 
 
-    String* const append = string_append(str, " esta muy entretenido");
+    String* const append = string_append_char(str, " esta muy entretenido");
     if (append == nullptr) {
         perror("Error reallocating memory for String");
         string_free(str);
