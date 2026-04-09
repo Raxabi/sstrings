@@ -72,8 +72,7 @@ inline String* const string_append_string(String* const dest, String* const src)
     return string_append_helper(dest, src->data, src->len);
 }
 
-String* const string_concat_char(String* const s1, char const* c1) {
-    size_t c1_len  = strlen(c1);
+static String* const string_concat_helper(String* const s1, char const* c1, size_t c1_len) {
     size_t c1_size = c1_len + 1;
 
     size_t size = s1->size + c1_len; // adding 1 is not needed since `s1->size` already holds the extra byte for the null terminator
@@ -89,6 +88,11 @@ String* const string_concat_char(String* const s1, char const* c1) {
     return string;
 }
 
+inline String* const string_concat_char(String* const s1, char const* c1) {
+    size_t c1_len = strlen(c1);
+    return string_concat_helper(s1, c1, c1_len);
+}
+
 inline String* const string_concat_string(String* const og, String* const src) {
-    return string_concat_char(og, src->data);
+    return string_concat_helper(og, src->data, src->len);
 }

@@ -36,6 +36,12 @@ String* const string_from_char(char const* content);
 /// @return Same pointer than `dest`
 String* const string_append_char(String* const dest, char const* src);
 
+/// @brief Modifies `dest->data` appending at the end the contents of `src->data`
+/// @param dest `String` object where `src->data` will be added
+/// @param src `String` object whose data field will be copied into `dest->data`
+/// @return Same pointer than `dest`
+String* const string_append_string(String* const dest, String* const src);
+
 /// @brief Creates a new `String` object result of appends the content of `src` into `String::data`
 /// @param s1 `String` object which will receive all the characters of `src`
 /// @param c1 string containing the chars being concatenated into `og->data`
