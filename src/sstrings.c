@@ -99,6 +99,6 @@ inline String* const string_concat_char(String* const s1, char const* c1) {
     return string_concat_helper(s1, c1, c1_len);
 }
 
-inline String* const string_concat_string(String* const og, String* const src) {
-    return string_concat_helper(og, src->data, src->len);
+inline String* const string_concat_string(String* const s1, String* const s2) {
+    return string_concat_helper(s1, s2->data, s2->len);
 }

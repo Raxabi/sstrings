@@ -45,11 +45,11 @@ String* const string_append_string(String* const dest, String* const src);
 /// @brief Creates a new `String` object result of appends the content of `src` into `String::data`
 /// @param s1 `String` object which will receive all the characters of `src`
 /// @param c1 string containing the chars being concatenated into `og->data`
-/// @return A new string joining the contents of `og->data` and `src` in one single `String` object
+/// @return A new string joining the contents of `s1->data` and `c1` in one single `String` object
 String* const string_concat_char(String* const s1, char const* c1);
 
 /// @brief Creates a new `String` object result of appends the content of `src->data` into `og->data`
 /// @param og `String` object which will receive all the characters of `src`
 /// @param src `String` object whose data will be concatenated into `og->data`
 /// @return A new string joining the contents of `og->data` and `src->data` in one unique `String` object
-String* const string_concat_string(String* const og, String* const src);
+String* const string_concat_string(String* const s1, String* const s2);
