@@ -72,6 +72,12 @@ inline String* const string_append_string(String* const dest, String* const src)
     return string_append_helper(dest, src->data, src->len);
 }
 
+/// @brief This function acts as a helper because calling it require to pass the `src` length (without null terminator)
+/// @brief In this way, there are fewer calls to `strlen` which is a O(N) complexity function
+/// @param s1 `String` object where `src` will be added
+/// @param c1 string content to be added into `s1->data`
+/// @param c1_len pre-computed size (in bytes) of `c1` without counting the null terminator
+/// @return A new string joining the contents of `s1->data` and `c1` in one single `String` object
 static String* const string_concat_helper(String* const s1, char const* c1, size_t c1_len) {
     size_t c1_size = c1_len + 1;
 
