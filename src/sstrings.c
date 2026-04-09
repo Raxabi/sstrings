@@ -37,11 +37,11 @@ String* const string_from_char(char const* content) {
     return string;
 }
 
-/// @brief This functions acts as a helper because calling it require to pass the `src` length (without null terminator)
+/// @brief This function acts as a helper because calling it require to pass the `src` length (without null terminator)
 /// @brief In this way, there are fewer calls to `strlen` which is a O(N) complexity function
 /// @param dest `String` object where `src` will be added
 /// @param src string content to be added into `dest->data`
-/// @param src_len pre-computed size (in bytes) without counting the null terminator
+/// @param src_len pre-computed size (in bytes) of `src` without counting the null terminator
 /// @return Same pointer than `dest`
 static String* const string_append_helper(String* const dest, char const* src, size_t src_len) {
     size_t src_size = src_len + 1; // This value holds the byte for the null terminator
