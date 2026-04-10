@@ -4,7 +4,6 @@
         {
             "name": "C WinLibs",
             "cStandard": "c23",
-            "intelliSenseMode": "linux-gcc-x64",
             "compilerPath": "gcc.exe",
             "includePath": [
                 "${workspaceFolder}/src/**"
