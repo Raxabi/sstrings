@@ -65,7 +65,7 @@ static String* const string_append_helper(String* const dest, char const* src, s
 
 inline String* const string_append_char(String* const dest, char const* src) {
     size_t src_len = strlen(src);
-    string_append_helper(dest, src, src_len);
+    return string_append_helper(dest, src, src_len);
 }
 
 inline String* const string_append_string(String* const dest, String* const src) {
