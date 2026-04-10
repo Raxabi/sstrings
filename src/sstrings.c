@@ -22,7 +22,7 @@ String* const string_from_size(size_t size) {
     }
 
     string->data = data;
-    string->len  = size - 1; 
+    string->len  = 0;
     string->size = size;
     return string;
 }
