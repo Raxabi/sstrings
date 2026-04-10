@@ -10,7 +10,7 @@
             "${workspaceFolder}/src/sstrings.c",
             "-I${workspaceFolder}/src",
             "-o",
-            "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            "${workspaceFolder}/main.exe"
         ],
         "problemMatcher": [
             "$gcc"
