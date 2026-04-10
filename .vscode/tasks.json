@@ -6,7 +6,9 @@
         "args": [
             "-fdiagnostics-color=always",
             "-g",
-            "${file}",
+            "${workspaceFolder}/main.c",
+            "${workspaceFolder}/src/sstrings.c",
+            "-I${workspaceFolder}/src",
             "-o",
             "${fileDirname}\\${fileBasenameNoExtension}.exe"
         ],
