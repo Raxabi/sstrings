@@ -32,16 +32,27 @@ int main() {
 
 
     String* const sized = string_from_size(50);
-
-
     if (!string_append_char(sized, "Counter straik ofensiva global hecho por valve xdd")) {
         perror("Error reallocating memory for String");
         string_free(sized);
         exit(EXIT_FAILURE);
     }
-
-    printf("String: %s\nLength: %d, Left size: %d\n", sized->data, sized->len, sized->size - sized->len);
-
+    printf("String: %s\nLength: %d, Left size: %d\n\n", sized->data, sized->len, sized->size - sized->len);
     string_free(sized);
+
+    String* const my_str = string_from_char("Puta#mierda_64");
+    printf("%s\n", my_str->data);
+
+    String* slice = string_slice(my_str, 2, 5);
+    if (!slice) {
+        perror("Bad ranges when slicing");
+        string_free(sized);
+        exit(EXIT_FAILURE);
+    }
+
+    printf("%s\n", slice->data);
+
+    string_free(slice);
+    string_free(my_str);
     return 0;
 }

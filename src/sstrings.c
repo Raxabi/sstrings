@@ -27,7 +27,7 @@ String* const string_from_size(size_t size) {
     // `string->len` is 0 because it represents the length in bytes until the null terminator
     // then, in absence of any char in our initialized memory, we left it to 0
 
-    *(string->data) = '\0';
+    *(string->data) = SSTRINGS_NULL_CHAR;
     return string;
 }
 
@@ -49,7 +49,7 @@ String* const string_from_char(char const* content) {
 /// @param src string content to be added into `dest->data`
 /// @param src_len pre-computed size (in bytes) of `src` without counting the null terminator
 /// @return Same pointer than `dest`
-/// @note If `src` take up more memory than `dest->data`, the reallocation may reserve some extra memory avoiding make more reallocations in the future
+/// @note If `src` take up more memory than `dest->data`, the reallocation may reserve some extra memory avoiding make more reallocations in the future. `nullptr` if the appended content require more un-allocable memory (realloc returns null)
 static String* const string_append_helper(String* const dest, char const* src, size_t src_len) {
     size_t src_size = src_len + 1; // This value holds the byte for the null terminator
 
@@ -100,7 +100,7 @@ inline String* const string_append_string(String* const dest, String* const src)
 /// @param s1 `String` object where `src` will be added
 /// @param c1 string content to be added into `s1->data`
 /// @param c1_len pre-computed size (in bytes) of `c1` without counting the null terminator
-/// @return A new string joining the contents of `s1->data` and `c1` in one single `String` object
+/// @return A new string joining the contents of `s1->data` and `c1` in one single `String` object. Null in case the resulting string could not been created
 static String* const string_concat_helper(String* const s1, char const* c1, size_t c1_len) {
     size_t c1_size = c1_len + 1;
 
@@ -131,4 +131,32 @@ inline String* const string_concat_char(String* const s1, char const* c1) {
 
 inline String* const string_concat_string(String* const s1, String* const s2) {
     return string_concat_helper(s1, s2->data, s2->len);
+}
+
+String* const string_slice(String* const s1, size_t from, size_t until) {
+    if (from < 0 || until > s1->len)
+        return nullptr;
+
+    char const* slice_start = s1->data + from;
+    String* const slice = string_from_size(until + 1); // allocates enough space for the null terminator
+
+    memcpy(slice->data, slice_start, until);
+    *(slice->data + until) = SSTRINGS_NULL_CHAR;
+    slice->len = until;
+
+    return slice;
+}
+
+String* const string_slice_from(String* const s1, size_t from) {
+    return string_slice(s1, from, s1->len);
+}
+
+String* const string_slice_until(String* const s1, size_t until) {
+    return string_slice(s1, 0, until);
+}
+
+String* const string_clear(String* const string) {
+    memset(string->data, SSTRINGS_NULL_CHAR, string->size);
+    string->len = 0;
+    return string;
 }

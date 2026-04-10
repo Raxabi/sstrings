@@ -9,6 +9,7 @@
 #endif
 
 #define SSTRINGS_VERSION 100
+#define SSTRINGS_NULL_CHAR 0x0
 
 typedef struct {
     char* data; // chunk of data
@@ -55,3 +56,27 @@ String* const string_concat_char(String* const s1, char const* c1);
 /// @param src `String` object whose data will be concatenated into `og->data`
 /// @return A new string joining the contents of `og->data` and `src->data` in one unique `String` object
 String* const string_concat_string(String* const s1, String* const s2);
+
+/// @brief Takes a slice of the data allocated in `s1->data`
+/// @param s1 `String` object where the data is allocated
+/// @param from Initial position from which the slice has to began (starts counting from 0 since strings are arrays)
+/// @param until How many characters the resulted slice should have from the `from` position (not counting from 0, since bytes are counted instead of indexed)
+/// @return A new `String` object whose data is a slice of `s1->data` between `from` and `until` values. `nullptr` if `from` is lowest than `0` or if `until` is greater than `s1->len`
+String* const string_slice(String* const s1, size_t from, size_t until);
+
+/// @brief Makes a slice from the start of the `String` contained data (`s1->data`) until the end of the data
+/// @param s1 `String` object where the data is allocated
+/// @param from Initial position from which the slice has to began
+/// @return A new `String` object whose data is a slice of `s1->data` between `from` and `until` values. `nullptr` if `from` is lowest than `0`
+String* const string_slice_from(String* const s1, size_t from);
+
+/// @brief Makes a slice from the start of the `String` contained data (`s1->data`) until the end of the data
+/// @param s1 `String` object where the data is allocated
+/// @param until How many characters the resulted slice should have from the start position (not counting from 0, since bytes are counted instead of positions)
+/// @return A new `String` object whose data is a slice of `s1->data` between `from` and `until` values. `nullptr` if `from` is lowest than `0`
+String* const string_slice_until(String* const s1, size_t until);
+
+/// @brief Makes the `String` object data be setted to 0
+/// @param string `String` object containing the data which want to be putted to 0
+/// @return The same `String` object pointed to by `string`
+String* const string_clear(String* const string);
