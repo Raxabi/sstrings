@@ -24,6 +24,8 @@ String* const string_from_size(size_t size) {
     string->data = data;
     string->len  = 0;
     string->size = size;
+    // `string->len` is 0 because it represents the length in bytes until the null terminator
+    // then, in absence of any char in our initialized memory, we left it to 0
     return string;
 }
 
