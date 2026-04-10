@@ -34,12 +34,14 @@ String* const string_from_char(char const* content);
 /// @param dest `String` object where `src` will be added
 /// @param src string content to be added into `dest->data`
 /// @return Same pointer than `dest`
+/// @note If `src` take up more memory than `dest->data`, the reallocation may reserve some extra memory avoiding make more reallocations in the future
 String* const string_append_char(String* const dest, char const* src);
 
 /// @brief Modifies `dest->data` appending at the end the contents of `src->data`
 /// @param dest `String` object where `src->data` will be added
 /// @param src `String` object whose data field will be copied into `dest->data`
 /// @return Same pointer than `dest`
+/// @note If `src->data` take up more memory than `dest->data`, the reallocation may reserve some extra memory avoiding make more reallocations in the future
 String* const string_append_string(String* const dest, String* const src);
 
 /// @brief Creates a new `String` object result of appends the content of `src` into `String::data`

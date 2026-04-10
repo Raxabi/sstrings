@@ -50,19 +50,36 @@ String* const string_from_char(char const* content) {
 static String* const string_append_helper(String* const dest, char const* src, size_t src_len) {
     size_t src_size = src_len + 1; // This value holds the byte for the null terminator
 
-    char* tmp = realloc(dest->data, dest->size + src_len);
-    if (tmp == nullptr)
-        return nullptr;
+    // data: [p, a, n, _, _, _, _, _]
+    // len = 3, size = 8
 
-    // In case where previously allocated memory can not grow anymore in its assigned region
-    dest->data = tmp;
+    // content: [t, u, m, a, c]
+    // len = 5, size: 6
+    
+    // try to add 'content' into 'data'
+    // will cause a buffer overflow
+    // since 'content->size' is higher than the left space in 'data->size'
+    // we know this by: 'data->size' - 'data->len', which results in the left space in our memory
+
+    // checking if a memory allocation is needed
+    // allows the program the possibility of avoid
+    // a system call to grow the current memory region holded by `dest->data`
+    if (src_size > dest->size - dest->len) {
+        char* tmp = realloc(dest->data, dest->size + src_len); // the resulted memory still left some extra space for possible extra append operations
+        if (tmp == nullptr)
+            return nullptr;
+
+        // In case where previously allocated memory can not grow anymore in its assigned region
+        dest->data = tmp;
+        dest->size += src_len;
+    }
+
 
     // Gets the position of the null character of `dest` String, then `memcpy` will overlap it by the first character of `src`
     char* dest_ends = dest->data + dest->len;
 
     // Updates the values in `dest`
     memcpy(dest_ends, src, src_size);
-    dest->size += src_len;
     dest->len  += src_len;
     return dest;
 }
