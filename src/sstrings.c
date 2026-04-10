@@ -104,15 +104,22 @@ inline String* const string_append_string(String* const dest, String* const src)
 static String* const string_concat_helper(String* const s1, char const* c1, size_t c1_len) {
     size_t c1_size = c1_len + 1;
 
-    size_t size = s1->size + c1_len; // adding 1 is not needed since `s1->size` already holds the extra byte for the null terminator
+    size_t len = s1->len + c1_len;
+    size_t size = s1->size + c1_len;
     String* const string = string_from_size(size);
     if (string == nullptr)
         return nullptr;
 
+    // Here `s1->len` is used instead of `s1->size` because we only want to copy the memory taked up by the non-empty memory
+    // also in this way the null terminator is not copied
+    memcpy(string->data, s1->data, s1->len);
+    string->len += s1->len;
+
+
     // Resolves the position where `c1` should be concatenated
-    char* string_ends = string->data + s1->len;
-    memcpy(string->data, s1->data, s1->size);
+    char* string_ends = string->data + string->len;
     memcpy(string_ends, c1, c1_size);
+    string->len += c1_len;
 
     return string;
 }
