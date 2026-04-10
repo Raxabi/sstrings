@@ -5,7 +5,7 @@
 
 #include "sstrings.h"
 
-void string_free(String* string) {
+inline void string_free(String* string) {
     free(string->data);
     free(string);
 }
