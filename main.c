@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "sstrings.h"
 
 int main() {
@@ -10,29 +11,28 @@ int main() {
     }
 
 
-    String* const append = string_append_char(str, " esta muy entretenido");
-    if (append == nullptr) {
+    if (!string_append_char(str, " esta muy entretenido")) {
         perror("Error reallocating memory for String");
         string_free(str);
         exit(EXIT_FAILURE);
     }
 
 
-    String* const concat = string_concat_char(append, " intentando recrear objetos strings");
+    String* const concat = string_concat_char(str, " intentando recrear objetos strings");
     if (concat == nullptr) {
         perror("Error reallocating memory for String");
-        string_free(append);
+        string_free(str);
         exit(EXIT_FAILURE);
     }
 
 
-    // `str` here is not more needed since `concat` is a new string object
-    string_free(append); // `append` its the same pointer than `str`
-
+    string_free(str);
     printf("%s\n\n", concat->data);
     string_free(concat);
 
+
     String* const sized = string_from_size(50);
+
 
     if (!string_append_char(sized, "Counter straik ofensiva global hecho por valve xdd")) {
         perror("Error reallocating memory for String");
