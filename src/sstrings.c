@@ -77,13 +77,12 @@ static String* const string_append_helper(String* const dest, char const* src, s
         dest->size += src_len;
     }
 
-
     // Gets the position of the null character of `dest` String, then `memcpy` will overlap it by the first character of `src`
     char* dest_ends = dest->data + dest->len;
 
     // Updates the values in `dest`
     memcpy(dest_ends, src, src_size);
-    dest->len  += src_len;
+    dest->len += src_len;
     return dest;
 }
 
