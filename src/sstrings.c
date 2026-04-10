@@ -47,6 +47,7 @@ String* const string_from_char(char const* content) {
 /// @param src string content to be added into `dest->data`
 /// @param src_len pre-computed size (in bytes) of `src` without counting the null terminator
 /// @return Same pointer than `dest`
+/// @note If `src` take up more memory than `dest->data`, the reallocation may reserve some extra memory avoiding make more reallocations in the future
 static String* const string_append_helper(String* const dest, char const* src, size_t src_len) {
     size_t src_size = src_len + 1; // This value holds the byte for the null terminator
 
