@@ -30,12 +30,14 @@ String* const string_from_size(size_t size) {
 }
 
 String* const string_from_char(char const* content) {
-    size_t size = strlen(content) + 1;
+    size_t len  = strlen(content);
+    size_t size = len + 1;
     String* const string = string_from_size(size);
     if (string == nullptr)
         return nullptr;
 
     memcpy(string->data, content, size);
+    string->len = len;
     return string;
 }
 
