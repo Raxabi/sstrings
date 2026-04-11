@@ -10,7 +10,7 @@ inline void string_free(String* string) {
     free(string);
 }
 
-String* const string_from_size(size_t size) {
+String* string_from_size(size_t size) {
     String* const string = malloc(sizeof(String));
     if (string == nullptr)
         return nullptr;
@@ -31,7 +31,7 @@ String* const string_from_size(size_t size) {
     return string;
 }
 
-String* const string_from_char(char const* content) {
+String* string_from_char(char const* content) {
     size_t len  = strlen(content);
     size_t size = len + 1;
     String* const string = string_from_size(size);
@@ -50,7 +50,7 @@ String* const string_from_char(char const* content) {
 /// @param src_len pre-computed size (in bytes) of `src` without counting the null terminator
 /// @return Same pointer than `dest`
 /// @note If `src` take up more memory than `dest->data`, the reallocation may reserve some extra memory avoiding make more reallocations in the future. `nullptr` if the appended content require more un-allocable memory (realloc returns null)
-static String* const string_append_helper(String* const dest, char const* src, size_t src_len) {
+static String* string_append_helper(String* const dest, char const* src, size_t src_len) {
     size_t src_size = src_len + 1; // This value holds the byte for the null terminator
 
     // data: [p, a, n, _, _, _, _, _]
@@ -86,12 +86,12 @@ static String* const string_append_helper(String* const dest, char const* src, s
     return dest;
 }
 
-inline String* const string_append_char(String* const dest, char const* src) {
+inline String* string_append_char(String* const dest, char const* src) {
     size_t src_len = strlen(src);
     return string_append_helper(dest, src, src_len);
 }
 
-inline String* const string_append_string(String* const dest, String* const src) {
+inline String* string_append_string(String* const dest, String* const src) {
     return string_append_helper(dest, src->data, src->len);
 }
 
@@ -101,7 +101,7 @@ inline String* const string_append_string(String* const dest, String* const src)
 /// @param c1 string content to be added into `s1->data`
 /// @param c1_len pre-computed size (in bytes) of `c1` without counting the null terminator
 /// @return A new string joining the contents of `s1->data` and `c1` in one single `String` object. Null in case the resulting string could not been created
-static String* const string_concat_helper(String* const s1, char const* c1, size_t c1_len) {
+static String* string_concat_helper(String* const s1, char const* c1, size_t c1_len) {
     size_t c1_size = c1_len + 1;
 
     size_t len = s1->len + c1_len;
@@ -124,16 +124,16 @@ static String* const string_concat_helper(String* const s1, char const* c1, size
     return string;
 }
 
-inline String* const string_concat_char(String* const s1, char const* c1) {
+inline String* string_concat_char(String* const s1, char const* c1) {
     size_t c1_len = strlen(c1);
     return string_concat_helper(s1, c1, c1_len);
 }
 
-inline String* const string_concat_string(String* const s1, String* const s2) {
+inline String* string_concat_string(String* const s1, String* const s2) {
     return string_concat_helper(s1, s2->data, s2->len);
 }
 
-String* const string_slice(String* const s1, size_t from, size_t until) {
+String* string_slice(String* const s1, size_t from, size_t until) {
     if (from < 0 || until > s1->len)
         return nullptr;
 
@@ -147,15 +147,15 @@ String* const string_slice(String* const s1, size_t from, size_t until) {
     return slice;
 }
 
-String* const string_slice_from(String* const s1, size_t from) {
+String* string_slice_from(String* const s1, size_t from) {
     return string_slice(s1, from, s1->len);
 }
 
-String* const string_slice_until(String* const s1, size_t until) {
+String* string_slice_until(String* const s1, size_t until) {
     return string_slice(s1, 0, until);
 }
 
-String* const string_clear(String* const string) {
+String* string_clear(String* const string) {
     memset(string->data, SSTRINGS_NULL_CHAR, string->size);
     string->len = 0;
     return string;
