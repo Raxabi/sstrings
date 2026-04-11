@@ -140,7 +140,7 @@ String* string_slice(String* const s1, size_t from, size_t until) {
     String* const slice = string_from_size(until + 1); // allocates enough space for the null terminator
 
     memcpy(slice->data, slice_start, until);
-    *(slice->data + until) = SSTRINGS_NULL_CHAR;
+    *(slice->data + until) = SSTRINGS_NULL_CHAR; // adds the null terminator to the resulting string
     slice->len = until;
 
     return slice;
