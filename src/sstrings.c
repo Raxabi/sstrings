@@ -154,6 +154,17 @@ String* string_slice_until(String* const s1, size_t until) {
     return string_slice(s1, 0, until);
 }
 
+bool string_compare(String* const s1, String* const s2) {
+    if (s1->len != s2->len)
+        return false;
+    
+    // `strcmp` is used instead of `strncmp`
+    // Since compare `String::size` is not needed
+    // because a `String` object could have over-allocated
+    // some extra memory in favour to avoid some extra possible reallocations
+    return strcmp(s1->data, s2->data) == 0;
+}
+
 String* string_clear(String* const string) {
     memset(string->data, SSTRINGS_NULL_CHAR, string->size);
     string->len = 0;

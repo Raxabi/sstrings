@@ -76,6 +76,12 @@ String* string_slice_from(String* const s1, size_t from);
 /// @return A new `String` object whose data is a slice of `s1->data` between `from` and `until` values. `nullptr` if `from` is lowest than `0`
 String* string_slice_until(String* const s1, size_t until);
 
+/// @brief Compares contents of `s1->data` with `s2->data`
+/// @param s1 `String` object being compared
+/// @param s2 `String` object being compared against `s1`
+/// @return `false` if `s1->len` and `s2->len` are not the same or if its contents are not the same. `true` otherwise
+bool string_compare(String* const s1, String* const s2);
+
 /// @brief Makes the `String` object data be setted to 0
 /// @param string `String` object containing the data which want to be putted to 0
 /// @return The same `String` object pointed to by `string`
