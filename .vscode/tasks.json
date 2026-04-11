@@ -7,9 +7,12 @@
         "args": [
             "-fdiagnostics-color=always",
             "-g",
+            "-Wall",
+            "-Wextra",
+            "-Werror=conversion",
+            "-I${workspaceFolder}/src",
             "${workspaceFolder}/main.c",
             "${workspaceFolder}/src/sstrings.c",
-            "-I${workspaceFolder}/src",
             "-o",
             "${workspaceFolder}/main.exe"
         ],
