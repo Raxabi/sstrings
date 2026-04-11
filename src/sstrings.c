@@ -14,7 +14,7 @@ String* string_from_size(size_t size) {
     String* const string = malloc(sizeof(String));
     if (string == nullptr)
         return nullptr;
-    
+
     char* data = malloc(size);
     if (data == nullptr) {
         string_free(string);
