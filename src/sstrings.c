@@ -138,6 +138,8 @@ String* string_slice(String* const s1, size_t from, size_t until) {
 
     char const* slice_start = s1->data + from;
     String* const slice = string_from_size(until + 1); // allocates enough space for the null terminator
+    if (slice == nullptr)
+        return nullptr;
 
     memcpy(slice->data, slice_start, until);
     *(slice->data + until) = SSTRINGS_NULL_CHAR; // adds the null terminator to the resulting string
