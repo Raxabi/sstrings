@@ -37,7 +37,7 @@ int main() {
         string_free(sized);
         exit(EXIT_FAILURE);
     }
-    printf("String: %s\nLength: %d, Left size: %d\n\n", sized->data, sized->len, sized->size - sized->len);
+    printf("String: %s\nLength: %lld, Left size: %lld\n\n", sized->data, sized->len, sized->size - sized->len);
     string_free(sized);
 
     String* const my_str = string_from_char("Puta#mierda_64");
