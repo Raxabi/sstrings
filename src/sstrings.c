@@ -104,7 +104,6 @@ inline String* string_append_string(String* const dest, String* const src) {
 static String* string_concat_helper(String* const s1, char const* c1, size_t c1_len) {
     size_t c1_size = c1_len + 1;
 
-    size_t len = s1->len + c1_len;
     size_t size = s1->size + c1_len;
     String* const string = string_from_size(size);
     if (string == nullptr)
