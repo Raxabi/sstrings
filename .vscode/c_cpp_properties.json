@@ -5,6 +5,7 @@
             "name": "C WinLibs",
             "cStandard": "c23",
             "compilerPath": "gcc.exe",
+            "compilerArgs": ["-Wall", "Wextra", "Werror=conversion"],
             "includePath": [
                 "${workspaceFolder}/src/**"
             ]
