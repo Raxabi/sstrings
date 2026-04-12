@@ -133,6 +133,13 @@ inline String* string_concat_string(String* const s1, String* const s2) {
 }
 
 String* string_slice(String* const s1, size_t from, size_t until) {
+    // Checking lewer than 0 is useless here
+    // since a implicit conversion is performed
+    // even activating the flag "Werror=conversion",
+    // because a runtime value could reach this function
+    // resulting in an integer overflow.
+    // The protection to this overflow is that `String::len`
+    // never will be lewer than 0 by design (unless `String::len` object was modified directly, in that case, undefined behaviours may probably occurs in your code)
     if (from > s1->len || until > s1->len || from > until)
         return nullptr;
 
