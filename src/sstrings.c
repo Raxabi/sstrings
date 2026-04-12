@@ -133,17 +133,20 @@ inline String* string_concat_string(String* const s1, String* const s2) {
 }
 
 String* string_slice(String* const s1, size_t from, size_t until) {
-    if (from < 0 || until > s1->len)
+    if (from > s1->len || until > s1->len || from > until)
         return nullptr;
 
+    size_t slice_len = until + 1; // we need to 'normalize' the values, since `until` is a index based value
+    size_t slice_size = slice_len + 1; // then after the normalization, we need to reserve enough memory for the null terminator
     char const* slice_start = s1->data + from;
-    String* const slice = string_from_size(until + 1); // allocates enough space for the null terminator
+    String* const slice = string_from_size(slice_size);
     if (slice == nullptr)
         return nullptr;
 
-    memcpy(slice->data, slice_start, until);
-    *(slice->data + until) = SSTRINGS_NULL_CHAR; // adds the null terminator to the resulting string
-    slice->len = until;
+    // using `slice_len` instead of `slice_size` here is correct
+    // since the null terminator has been already added, so we only want to copy 'n' bytes without counting the null terminator
+    memcpy(slice->data, slice_start, slice_len);
+    slice->len = slice_len;
 
     return slice;
 }
