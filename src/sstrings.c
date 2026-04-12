@@ -174,6 +174,7 @@ bool string_compare(String* const s1, String* const s2) {
     // Since compare `String::size` is not needed
     // because a `String` object could have over-allocated
     // some extra memory in favour to avoid some extra possible reallocations
+    // also we want just check that the contents are equals
     return strcmp(s1->data, s2->data) == 0;
 }
 
