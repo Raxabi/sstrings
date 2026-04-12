@@ -60,7 +60,7 @@ String* string_concat_string(String* const s1, String* const s2);
 /// @brief Takes a slice of the data allocated in `s1->data`
 /// @param s1 `String` object where the data is allocated
 /// @param from Initial position from which the slice has to began (starts counting from 0 since strings are arrays)
-/// @param until How many characters the resulted slice should have from the `from` position (not counting from 0, since bytes are counted instead of indexed)
+/// @param until How many characters the resulted slice should have from the `from` position (counting from 0 since strings are arrays)
 /// @return A new `String` object whose data is a slice of `s1->data` between `from` and `until` values. `nullptr` if `from` is lowest than `0` or if `until` is greater than `s1->len`
 String* string_slice(String* const s1, size_t from, size_t until);
 
