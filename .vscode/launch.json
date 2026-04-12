@@ -4,7 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [{
-        "name": "(gdb) Launch",
+        "name": "Debug sstrings",
         "type": "cppdbg",
         "request": "launch",
         "preLaunchTask": "C/C++: gcc.exe build active file",
@@ -12,7 +12,6 @@
         "args": [],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",
-        "environment": [],
         "externalConsole": false,
         "MIMode": "gdb",
         "miDebuggerPath": "gdb.exe",
@@ -20,8 +19,27 @@
             "description": "Enable pretty-printing for gdb",
             "text": "-enable-pretty-printing",
             "ignoreFailures": true
-        },
-        {
+        }, {
+            "description": "Set Disassembly Flavor to Intel",
+            "text": "-gdb-set disassembly-flavor intel",
+            "ignoreFailures": true
+        }]
+    }, {
+        "name": "Run current test",
+        "type": "cppdbg",
+        "request": "launch",
+        "preLaunchTask": "Compile current test",
+        "program": "${workspaceFolder}/tests/${fileBasenameNoExtension}/${fileBasenameNoExtension}.exe",
+        "args": [],
+        "cwd": "${fileDirname}",
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "miDebuggerPath": "gdb.exe",
+        "setupCommands": [{
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+        }, {
             "description": "Set Disassembly Flavor to Intel",
             "text": "-gdb-set disassembly-flavor intel",
             "ignoreFailures": true

@@ -11,8 +11,8 @@
             "-Wextra",
             "-Werror=conversion",
             "-I${workspaceFolder}/src",
-            "${workspaceFolder}/main.c",
             "${workspaceFolder}/src/sstrings.c",
+            "${workspaceFolder}/main.c",
             "-o",
             "${workspaceFolder}/main.exe"
         ],
@@ -21,7 +21,31 @@
         ],
         "group": {
             "kind": "build",
-            "isDefault": true
+            "isDefault": false
+        }
+    }, {
+        "type": "cppbuild",
+        "label": "Compile current test",
+        "detail": "Compile the current sstrings test",
+        "command": "gcc.exe",
+        "args": [
+            "-fdiagnostics-color=always",
+            "-g",
+            "-Wall",
+            "-Wextra",
+            "-Werror=conversion",
+            "-I${workspaceFolder}/src",
+            "${workspaceFolder}/src/sstrings.c",
+            "${workspaceFolder}/tests/${fileBasenameNoExtension}/${fileBasename}",
+            "-o",
+            "${workspaceFolder}/tests/${fileBasenameNoExtension}/${fileBasenameNoExtension}.exe"
+        ],
+        "problemMatcher": [
+            "$gcc"
+        ],
+        "group": {
+            "kind": "build",
+            "isDefault": false
         }
     }],
     "version": "2.0.0"
