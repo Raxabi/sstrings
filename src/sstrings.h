@@ -76,6 +76,13 @@ String* string_slice_from(String* const s1, size_t from);
 /// @return A new `String` object whose data is a slice of `s1->data` between `from` and `until` values. `nullptr` if `from` is lowest than `0`
 String* string_slice_until(String* const s1, size_t until);
 
+/// @brief Replaces a single char in the `String` data (s1->data)
+/// @param s1 `String` object which will be modified
+/// @param index Position of the char to be replaced (counting from 0 since strings are arrays)
+/// @param replacement char value to place in `index` position
+/// @return Same pointer than `s1`
+String* string_replace(String* const s1, size_t index, char replacement);
+
 /// @brief Compares contents of `s1->data` with `s2->data`
 /// @param s1 `String` object being compared
 /// @param s2 `String` object being compared against `s1`

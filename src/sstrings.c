@@ -166,6 +166,14 @@ String* string_slice_until(String* const s1, size_t until) {
     return string_slice(s1, 0, until);
 }
 
+String* string_replace(String* const s1, size_t index, char replacement) {
+    if (index > s1->len)
+        return nullptr;
+
+    *(s1->data + index) = replacement;
+    return s1;
+}
+
 bool string_compare(String* const s1, String* const s2) {
     if (s1->len != s2->len)
         return false;
