@@ -140,7 +140,7 @@ String* string_slice(String* const s1, size_t from, size_t until) {
     // resulting in an integer overflow.
     // The protection to this overflow is that `String::len`
     // never will be lewer than 0 by design (unless `String::len` object was modified directly, in that case, undefined behaviours may probably occurs in your code)
-    if (from > s1->len || until > s1->len || from > until)
+    if (from > s1->len || until > s1->len - 1 || from > until)
         return nullptr;
 
     size_t slice_len = until + 1; // we need to 'normalize' the values, since `until` is a index based value
