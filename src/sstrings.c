@@ -27,7 +27,7 @@ String* string_from_size(size_t size) {
     // `string->len` is 0 because it represents the length in bytes until the null terminator
     // then, in absence of any char in our initialized memory, we left it to 0
 
-    *(string->data) = SSTRINGS_NULL_CHAR;
+    memset(string->data, SSTRINGS_NULL_CHAR, string->size);
     return string;
 }
 
