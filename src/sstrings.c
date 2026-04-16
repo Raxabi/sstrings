@@ -133,6 +133,11 @@ inline String* string_concat_string(String* const s1, String* const s2) {
 }
 
 String* string_slice(String* const s1, size_t from, size_t until) {
+    if (!s1 || !s1->data)
+        return nullptr;
+
+    size_t const max_index = s1->len - 1;
+
     // Checking lewer than 0 is useless here
     // since a implicit conversion is performed
     // even activating the flag "Werror=conversion",
@@ -140,19 +145,18 @@ String* string_slice(String* const s1, size_t from, size_t until) {
     // resulting in an integer overflow.
     // The protection to this overflow is that `String::len`
     // never will be lewer than 0 by design (unless `String::len` object was modified directly, in that case, undefined behaviours may probably occurs in your code)
-    if (from > s1->len || until > s1->len - 1 || from > until)
+    if (from > until || from > max_index || until > max_index)
         return nullptr;
 
-    size_t slice_len = until + 1; // we need to 'normalize' the values, since `until` is a index based value
-    size_t slice_size = slice_len + 1; // then after the normalization, we need to reserve enough memory for the null terminator
-    char const* slice_start = s1->data + from;
-    String* const slice = string_from_size(slice_size);
-    if (slice == nullptr)
+    size_t slice_len = (until - from) + 1;
+    size_t slice_size = slice_len + 1;
+
+    String* slice = string_from_size(slice_size);
+    if (!slice)
         return nullptr;
 
-    // using `slice_len` instead of `slice_size` here is correct
-    // since the null terminator has been already added, so we only want to copy 'n' bytes without counting the null terminator
-    memcpy(slice->data, slice_start, slice_len);
+    memcpy(slice->data, s1->data + from, slice_len);
+    *(slice->data + slice_len) = '\0';
     slice->len = slice_len;
 
     return slice;
