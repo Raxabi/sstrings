@@ -163,7 +163,7 @@ String* string_slice(String* const s1, size_t from, size_t until) {
 }
 
 String* string_slice_from(String* const s1, size_t from) {
-    return string_slice(s1, from, s1->len);
+    return string_slice(s1, from, s1->len - 1);
 }
 
 String* string_slice_until(String* const s1, size_t until) {
