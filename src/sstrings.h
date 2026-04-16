@@ -83,6 +83,11 @@ String* string_slice_until(String* const s1, size_t until);
 /// @return Same pointer than `s1`
 String* string_replace(String* const s1, size_t index, char replacement);
 
+/// @brief Clones a string
+/// @param s1 `String` object 
+/// @return A new `String` object with the same contents than `s1->data`
+String* string_clone(String* const s1);
+
 /// @brief Compares contents of `s1->data` with `s2->data`
 /// @param s1 `String` object being compared
 /// @param s2 `String` object being compared against `s1`

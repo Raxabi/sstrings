@@ -178,6 +178,25 @@ String* string_replace(String* const s1, size_t index, char replacement) {
     return s1;
 }
 
+String* string_clone(String* const s1) {
+    String* const string = malloc(sizeof(String));
+    if (!string)
+        return nullptr;
+
+    char* data = malloc(s1->size);
+    if (!data) {
+        free(string);
+        return nullptr;
+    }
+
+    memcpy(data, s1->data, s1->size);
+    string->data = data;
+    string->len = s1->len;
+    string->size = s1->size;
+
+    return string;
+}
+
 bool string_compare(String* const s1, String* const s2) {
     if (s1->len != s2->len)
         return false;
