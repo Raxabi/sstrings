@@ -2,7 +2,6 @@
 
 #include <string.h>
 #include <stdlib.h>
-
 #include "sstrings.h"
 
 inline void string_free(String* string) {
