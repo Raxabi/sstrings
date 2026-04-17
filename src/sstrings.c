@@ -11,11 +11,11 @@ inline void string_free(String* string) {
 
 String* string_from_size(size_t size) {
     String* const string = malloc(sizeof(String));
-    if (string == nullptr)
+    if (!string)
         return nullptr;
 
     char* data = malloc(size);
-    if (data == nullptr) {
+    if (!data) {
         string_free(string);
         return nullptr;
     }
@@ -34,7 +34,7 @@ String* string_from_char(char const* content) {
     size_t len  = strlen(content);
     size_t size = len + 1;
     String* const string = string_from_size(size);
-    if (string == nullptr)
+    if (!string)
         return nullptr;
 
     memcpy(string->data, content, size);
@@ -68,7 +68,7 @@ static String* string_append_helper(String* const dest, char const* src, size_t 
     // a system call to grow the current memory region holded by `dest->data`
     if (src_size > dest->size - dest->len) {
         char* tmp = realloc(dest->data, dest->size + src_len); // the resulted memory still left some extra space for possible extra append operations
-        if (tmp == nullptr)
+        if (!tmp)
             return nullptr;
 
         // In case where previously allocated memory can not grow anymore in its assigned region
@@ -105,7 +105,7 @@ static String* string_concat_helper(String* const s1, char const* c1, size_t c1_
 
     size_t size = s1->size + c1_len;
     String* const string = string_from_size(size);
-    if (string == nullptr)
+    if (!string)
         return nullptr;
 
     // Here `s1->len` is used instead of `s1->size` because we only want to copy the memory taked up by the non-empty memory
