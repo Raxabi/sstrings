@@ -170,7 +170,7 @@ String* string_slice_until(String* const s1, size_t until) {
 }
 
 String* string_replace(String* const s1, size_t index, char replacement) {
-    if (index > s1->len)
+    if (index > s1->len - 1)
         return nullptr;
 
     *(s1->data + index) = replacement;
